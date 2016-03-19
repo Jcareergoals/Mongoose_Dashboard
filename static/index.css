@@ -1,0 +1,92 @@
+	* {
+		margin: 0px; 
+		padding: 0px; 
+		font-family: sans-serif; 
+	}
+	body {
+		background-color: white; 
+		background-image: url('grass.jpg'); 
+		background-size: cover; 
+		background-position: center; 
+		font-size: 1em; 
+	}
+	#container {
+		width: 960px; 
+		min-height: 500px; 
+		max-height: 700px;
+		padding: 20px;  
+		border: 1px solid black; 
+		background-color: rgba(10,10,10,.8); 
+		margin: 40px auto; 
+		border-radius: 5px; 
+	}
+	.header {
+		width: 960px; 
+		height: 100px; 
+		text-align: center; 
+		color: white;
+	}
+	.pack, .info, .nav{
+		display: inline-block;
+		vertical-align: top; 
+		padding: 10px; 
+	}
+	.info {
+		width: 380px; 
+		height: 150px; 
+		background-color: rgba(250,250,250,.8);
+		box-shadow: 0px 0px 7px black inset;  
+		margin-left: 70px;
+		overflow: auto; 
+	}
+	.pack {
+		width: 460px; 
+		height: 300px; 
+		overflow: auto; 
+		background-color: rgba(250,250,250,.5); 
+		box-shadow: 0px 0px 7px black inset; 
+	}
+	.rabbit {
+		width: 100px; 
+		height: 100px; 
+		display: inline-block;
+		margin: 5px; 
+	}
+	.rabbit button {
+		width: 50%; 
+		padding: 2px 3px;
+		color: white; 
+		border: 1px solid black;  
+		display: inline-block;
+	}
+	.rabbit:hover {
+		box-shadow: 0px 0px 30px darkgreen; 
+	}
+	.delete {background-color: red; }
+	.update {
+		background-color: green; 
+		margin: auto -4px; 
+	}
+	.info span {
+		font-weight: bold; 
+		color: black;
+	}
+
+	ul {
+	 	float: right;
+		padding: 10px; 
+		color: white; 
+		text-decoration: none;
+		background-color: rgba(245,245,245,.8); 
+		border-radius: 15px 0px 0px 0px; 
+	 }
+	ul:hover {box-shadow: -2px 0px 15px black; }
+	ul li { 
+		list-style-type: none;
+		color: rgb(80,80,80);
+		font-weight: bold; 
+	}
+	.pack form {display: inline;}
+
+
+

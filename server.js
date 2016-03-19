@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express(); 
 
-app.use(express.static(path.join(__dirname, '/static')));
+app.use(express.static(__dirname+'/static'));
 app.use(bodyParser.urlencoded());
 
 app.set('views', path.join(__dirname, '/views'));
@@ -21,18 +21,79 @@ var AnimalSchema = new mongoose.Schema({
 mongoose.model('rabbit', AnimalSchema); 
 var rabbit = mongoose.model('rabbit');
 
-// to be delegated to routes folder
+// ================== URLS ========================
+
+// Displays all rabbits
 app.get('/', function(req, res){
-	rabbit.find({},function(err, animal){
+	rabbit.find({},function(err, data){
 		if(err){
 			console.log(err);
+			// res.render('index', err);
 		} else {
-			// console.log(animal);
-			res.render('index', animal); 
+			// console.log('Loading index');
+			// console.log(data); 
+			res.render('index', {rabbits:data}); 
 		}
 	}); 
 });
+// Displays information on specified rabbit
+app.get('/rabbit/:id', function(req, res){
+	console.log('Specific rabbit information will be displayed using AJAX'); 
+	res.redirect('/');
+});
+// Displays form for creating a new rabbit
+app.get('/rabbit/new', function(req, res){
+	res.render('new'); 
+}); 
+// Creates new rabbit
+app.post('/rabbit', function(req,res){
+	var newRabbit = new rabbit({
+		name: req.body.name, 
+		gender: req.body.gender,
+		age: req.body.age,
+		description: req.body.background
+	}); 
+	newRabbit.save(function(err){
+		if(err){
+			console.log(err);
+			res.render('/rabbit/new', {error:err});
+		} else {
+			res.redirect('/');
+		}
+	});
+});
+// // Displays form to edit rabbit
+app.get('/rabbit/:id/edit', function(req, res){
+	rabbit.findOne({_id:req.params.id},function(err, data){
+		if(err){
+			console.log('There was an error! <br>',err.errors); 
+			res.render('edit');  
+		} else {
+			console.log(data); 
+			res.render('edit', {rabbit:data});
+		}
+	}); 
+});
+app.post('/rabbit/:id', function(req,res){
+	rabbit.update({_id:req.params.id},{name:req.body.name, age:req.body.age, description:req.body.background},function(err){
+		if(err){
+			console.log(err.errors);
+			res.redirect('/');
+		} else {
+			res.redirect('/');
+		}
+	});
+}); 
+// Destroys rabbit object 
+app.post('/rabbit/:id/destroy', function(req, res){
+	console.log("This is the deletion");
+	console.log(req.params.id); 
+	rabbit.remove({_id:req.params.id}, function(err){
+		res.redirect('/'); 
+	})
+}); 
 
+// LISTENING PORT
 app.listen(8888, function(){
 	console.log('Listening at port: 8888');
 });

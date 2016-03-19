@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Create Rabbit</title>
+		<meta charset="UTF-8">
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+		integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" 
+		integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
+		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<!-- css -->
+		<link rel="stylesheet" type="text/css" href="/new.css">
+	</head>
+	<body>
+		<ul class='nav'>
+			<li><a href="/">Head Back</a></li>
+		</ul>
+		<div id="container">
+			<img src="../bunny.png" alt="rabbit" width='90%' height='45%'>
+			<div class="container-fluid">
+				<div class="row">
+					<form action='/rabbit' method='post' class='form form-horizontal'>
+						<div class="form-group">
+							<label for='name' class='control-label col-xs-2'>Name:</label>
+							<div class='col-xs-8'>
+								<input type='name' name='name' id='name' class='form-control'>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for='male' class='control-label col-xs-2'>Male:</label>
+							<input type='radio' value='male' id='male' class='col-xs-1'>
+						
+							<label for='female' class='control-label col-xs-2'>Female:</label>
+							<input type='radio' value='female' id='female' class='col-xs-1'>
+						</div>
+						<div class="form-group">
+							<label for='age' class='col-xs-2 control-label'>Age:</label>
+							<div class="col-xs-3">
+								<input type='number' name='age' id='age' class='form-control'>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for='bg' class='control-label col-xs-2'>Background:</label>
+							<div class="col-xs-12">
+								<textarea id='background' name='background' id='bg' class='form-control'></textarea>
+							</div>
+						</div>
+						<button type='submit' class='btn'>Create</button>
+					</form>
+				</div>
+			</div>
+		</div> <!-- End Container -->
+	</body> 
+</html>
