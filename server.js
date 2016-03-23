@@ -7,7 +7,7 @@ var app = express();
 app.use(express.static(__dirname+'/static'));
 app.use(bodyParser.urlencoded());
 
-app.set('views', path.join(__dirname, '/views'));
+app.set('views', path.join(__dirname, '/views')); 
 app.set('view engine', 'ejs');
 
 mongoose.connect('mongodb://localhost/the_pack'); 
@@ -17,7 +17,7 @@ var AnimalSchema = new mongoose.Schema({
 	gender: String,
 	age: Number,
 	description: String
-}); 
+});  
 mongoose.model('rabbit', AnimalSchema); 
 var rabbit = mongoose.model('rabbit');
 
@@ -26,25 +26,20 @@ var rabbit = mongoose.model('rabbit');
 // Displays all rabbits
 app.get('/', function(req, res){
 	rabbit.find({},function(err, data){
-		if(err){
-			console.log(err);
-			// res.render('index', err);
-		} else {
-			// console.log('Loading index');
-			// console.log(data); 
-			res.render('index', {rabbits:data}); 
-		}
+		res.render('index', {rabbits:data});
 	}); 
 });
-// Displays information on specified rabbit
-app.get('/rabbit/:id', function(req, res){
-	console.log('Specific rabbit information will be displayed using AJAX'); 
-	res.redirect('/');
-});
 // Displays form for creating a new rabbit
-app.get('/rabbit/new', function(req, res){
+app.get('/rabbit/new/', function(req, res){
 	res.render('new'); 
 }); 
+// Displays specified rabbit using ajax call 
+app.get('/rabbit/:id', function(req, res){
+	rabbit.find({_id:req.params.id}, function(err, data){
+		res.send(data);
+	});
+}); 
+
 // Creates new rabbit
 app.post('/rabbit', function(req,res){
 	var newRabbit = new rabbit({
@@ -62,31 +57,33 @@ app.post('/rabbit', function(req,res){
 		}
 	});
 });
-// // Displays form to edit rabbit
+// Displays form to edit individual rabbit
 app.get('/rabbit/:id/edit', function(req, res){
 	rabbit.findOne({_id:req.params.id},function(err, data){
 		if(err){
-			console.log('There was an error! <br>',err.errors); 
-			res.render('edit');  
+			console.log('There was an error!'); 
+			console.log(err.errors);
+			res.redirect('/'); 
 		} else {
-			console.log(data); 
-			res.render('edit', {rabbit:data});
+			console.log(data);
+			res.render('edit', {rabbit:data}); 
 		}
 	}); 
 });
+// Updates individual rabbit
 app.post('/rabbit/:id', function(req,res){
-	rabbit.update({_id:req.params.id},{name:req.body.name, age:req.body.age, description:req.body.background},function(err){
-		if(err){
-			console.log(err.errors);
-			res.redirect('/');
-		} else {
-			res.redirect('/');
-		}
+	rabbit.update({_id:req.params.id},{
+		name: req.body.name, 
+		age: req.body.age, 
+		description: req.body.background
+	}, function(err){
+		console.log("updating rabbit:");
+		res.redirect('/');
 	});
 }); 
 // Destroys rabbit object 
 app.post('/rabbit/:id/destroy', function(req, res){
-	console.log("This is the deletion");
+	console.log("Deleting: ");
 	console.log(req.params.id); 
 	rabbit.remove({_id:req.params.id}, function(err){
 		res.redirect('/'); 

@@ -26,7 +26,7 @@
 		text-align: center; 
 		color: white;
 	}
-	.pack, .info, .nav{
+	.pack, .info, .nav {
 		display: inline-block;
 		vertical-align: top; 
 		padding: 10px; 
@@ -67,7 +67,7 @@
 		background-color: green; 
 		margin: auto -4px; 
 	}
-	.info span {
+	.caption {
 		font-weight: bold; 
 		color: black;
 	}
@@ -86,7 +86,7 @@
 		color: rgb(80,80,80);
 		font-weight: bold; 
 	}
-	.pack form {display: inline;}
+	.pack form, .caption, p {display: inline;}
 
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 	<head>
 		<title>Animal Dashboard</title>
 		<meta charset="UTF-8">
@@ -7,6 +7,19 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
 		<!-- css -->
 		<link rel="stylesheet" type="text/css" href="index.css">
+		<script>
+			$(document).ready(function(){
+				$('#container').on('click', 'img', function(){
+					$.get('/rabbit/'+$(this).attr('id'), function(res){
+						console.log(res);
+						$('.name').text(res[0].name);
+						$('.gender').text(res[0].gender);
+						$('.age').text(res[0].age);
+						$('.description').text(res[0].description);
+					}, 'json'); 
+				}); 
+			}); 
+		</script>
 	</head>
 	<body>
 		<a href="/rabbit/new">
@@ -35,7 +48,8 @@
 								age = 4;
 							}
 						%>
-						<a href="/rabbit/<%= rabbits[i].id %>"><img src=<%="rabbit_"+age+".jpg"%> alt="<%= rabbits[i].id %>" width='100px' height='100px'></a>
+						
+						<img src=<%="rabbit_"+age+".jpg" %> width="100px" height="100px" alt='rabbit' id="<%= rabbits[i].id %>">
 						<form action="/rabbit/<%= rabbits[i].id %>/destroy" method="post">
 							<button type='submit' class='delete'>Delete</button>
 						</form>
@@ -48,10 +62,10 @@
 			%>
 			</div>
 			<div class="info">
-				<p><span>Name: </span> Jose</p>
-				<p><span>Gender:</span> Male</p>
-				<p><span>Age: </span> 15</p>
-				<p><span>Background:</span>Upon clicking a rabbit's image, it's information will be displayed here.</p>
+				<p class="caption">Name:</p> <p class='name'></p><br>
+				<p class="caption">Gender:</p> <p class='gender'></p><br>
+				<p class="caption">Age:</p> <p class='age'></p><br>
+				<p class="caption">Background:</p> <p class='description'></p><br>
 			</div>
 		</div> <!-- End Container -->
 		
